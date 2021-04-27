@@ -1,0 +1,26 @@
+{
+  "name": "project_labo_web_apps",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build:css": "npx tailwindcss build ./public/styles/source.css -o ./public/styles/libs/tailwind.css",
+    "dev": "postcss ./public/styles/app.css -o ./public/styles/libs/app.css"
+  },
+  "author": "Rune Samyn",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.2.5",
+    "postcss": "^8.2.12",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^2.1.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "html": "^1.0.0",
+    "jquery": "^3.6.0",
+    "material-design-icons": "^3.0.1",
+    "tailwindcss-dark-mode": "^1.1.7"
+  }
+}

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Web Apps</title>
+    <script src="/scripts/libs/jquery.min.js"></script>
+    <script src="/scripts/app.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/styles/libs/tailwind.css" rel="stylesheet">
+    <link href="/styles/style.css">
+</head>
+
+<body class="flex flex-col h-screen justify-between dark:bg-gray-600 bg-gray-100 ">
+    <nav class="dark:bg-gray-800 bg-indigo-500">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+            <div class="relative flex items-center justify-between h-16">
+                <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                    <!-- Mobile menu button-->
+                    <button type="button" id="btn-toggle-menu"
+                        class="inline-flex items-center justify-center p-2 rounded-md dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700"
+                        aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <!--
+                  Icon when menu is closed.
+                  Heroicon name: outline/menu
+                  Menu open: "hidden", Menu closed: "block"
+                    -->
+                        <svg id="svg-menu-closed" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <!--
+                  Icon when menu is open.
+                  Heroicon name: outline/x
+                  Menu open: "block", Menu closed: "hidden"
+                    -->
+                        <svg id="svg-menu-open" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+                    <div class="flex-shrink-0 flex items-center">
+                        <!-- <img class="block lg:hidden h-8 w-auto"
+                            src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow">
+                        <img class="hidden lg:block h-8 w-auto"
+                            src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+                            alt="Workflow"> -->
+                        <a href="/">
+                            <span
+                                class="align-middle material-icons text-black text-lg dark:text-indigo-500">ac_unit</span>
+                            <span
+                                class="align-middle text-black font-semibold text-lg dark:text-indigo-500 mx-1">Project
+                                Web Apps</span>
+                        </a>
+                    </div>
+                    <div class="hidden sm:block sm:ml-6">
+                        <div class="flex space-x-4">
+                            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                            <a href="/graphs"
+                                class="hover:bg-indigo-300 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                aria-current="page">Graphs</a>
+
+                            <a href="/sensors"
+                                class="bg-indigo-300 dark:bg-gray-900 dark:text-white px-3 py-2 rounded-md text-sm font-medium">Sensors</a>
+
+                            <a href="/settings"
+                                class="hover:bg-indigo-300 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium">Settings</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                    <button
+                        class="align-middle dark:bg-gray-800 p-1 dark:text-gray-400 dark:hover:text-white focus:border-0 focus:outline-none"
+                        id="btn-toggle-dark-mode">
+                        <span class="material-icons align-middle" id="icon-toggle-dark-mode">
+                            light_mode
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu, show/hide based on menu state. -->
+        <div class="hidden sm:hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                <a href="/graphs"
+                    class="hover:bg-indigo-300 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                    aria-current="page">Graphs</a>
+                <a href="/sensors"
+                    class="bg-indigo-300 dark:bg-gray-900 dark:text-white block px-3 py-2 rounded-md text-base font-medium">Sensors</a>
+                <a href="/settings"
+                    class="hover:bg-indigo-300 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium">Settings</a>
+            </div>
+        </div>
+    </nav>
+    <div class="flex-grow max-w-sm md:max-w-none container mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-items-stretch mx-2 md:mx-5 py-4 text-black dark:text-white">
+            <!--- Card --->
+            <div class="relative bg-white dark:bg-gray-800 py-6 px-6 rounded-3xl w-auto shadow-xl">
+                <!--- Title --->
+                <span class="text-black dark:text-white text-xl font-semibold">Lokaal I118</span>
+                <!--- Graph button --->
+                <span class="absolute right-4 top-4">
+                    <button
+                        class="bg-indigo-500 text-black rounded-full justify-center items-center focus:outline-none w-10 h-10 shadow-xl">
+                        <span class="material-icons text-center">bar_chart</span>
+                    </button>
+                </span>
+                <!--- values --->
+                <div class="mt-4 grid grid-cols-3 gap-2 justify-items-stretch mx-1 text-base">
+                    <span class="border-b-2 border-l-2 border-green-600 rounded-2 text-green-600 p-2">
+                        <span class="block">CO2</span>
+                        <span class="block">1200ppm</span>
+                    </span>
+                    <span class="border-b-2 border-l-2 border-blue-600 rounded-2 text-blue-600 p-2">
+                        <span class="block">Hum</span>
+                        <span class="block">55%</span>
+                    </span>
+                    <span class="border-b-2 border-l-2 border-red-600 rounded-2 text-red-600 p-2">
+                        <span class="block">Temp</span>
+                        <span class="block">22°C</span>
+                    </span>
+                </div>
+            </div>
+            <!--- Card --->
+            <div class="relative bg-white dark:bg-gray-800 py-6 px-6 rounded-3xl w-auto shadow-xl">
+                <!--- Title --->
+                <span class="text-black dark:text-white text-xl font-semibold">Lokaal I118</span>
+                <!--- Graph button --->
+                <span class="absolute right-4 top-4">
+                    <button
+                        class="bg-indigo-500 text-black rounded-full justify-center items-center focus:outline-none w-10 h-10 shadow-xl">
+                        <span class="material-icons text-center">bar_chart</span>
+                    </button>
+                </span>
+                <!--- values --->
+                <div class="mt-4 grid grid-cols-3 gap-2 justify-items-stretch mx-1 text-base">
+                    <span class="border-b-2 border-l-2 border-green-600 rounded-2 text-green-600 p-2">
+                        <span class="block">CO2</span>
+                        <span class="block">1200ppm</span>
+                    </span>
+                    <span class="border-b-2 border-l-2 border-blue-600 rounded-2 text-blue-600 p-2">
+                        <span class="block">Hum</span>
+                        <span class="block">55%</span>
+                    </span>
+                    <span class="border-b-2 border-l-2 border-red-600 rounded-2 text-red-600 p-2">
+                        <span class="block">Temp</span>
+                        <span class="block">22°C</span>
+                    </span>
+                </div>
+            </div>
+            <!--- Card --->
+            <div class="relative bg-white dark:bg-gray-800 py-6 px-6 rounded-3xl w-auto shadow-xl">
+                <!--- Title --->
+                <span class="text-black dark:text-white text-xl font-semibold">Lokaal I118</span>
+                <!--- Graph button --->
+                <span class="absolute right-4 top-4">
+                    <button
+                        class="bg-indigo-500 text-black rounded-full justify-center items-center focus:outline-none w-10 h-10 shadow-xl">
+                        <span class="material-icons text-center">bar_chart</span>
+                    </button>
+                </span>
+                <!--- values --->
+                <div class="mt-4 grid grid-cols-3 gap-2 justify-items-stretch mx-1 text-base">
+                    <span class="border-b-2 border-l-2 border-green-600 rounded-2 text-green-600 p-2">
+                        <span class="block">CO2</span>
+                        <span class="block">1200ppm</span>
+                    </span>
+                    <span class="border-b-2 border-l-2 border-blue-600 rounded-2 text-blue-600 p-2">
+                        <span class="block">Hum</span>
+                        <span class="block">55%</span>
+                    </span>
+                    <span class="border-b-2 border-l-2 border-red-600 rounded-2 text-red-600 p-2">
+                        <span class="block">Temp</span>
+                        <span class="block">22°C</span>
+                    </span>
+                </div>
+            </div>
+            <!--- Card --->
+            <div class="relative bg-white dark:bg-gray-800 py-6 px-6 rounded-3xl w-auto shadow-xl">
+                <!--- Title --->
+                <span class="text-black dark:text-white text-xl font-semibold">Lokaal I118</span>
+                <!--- Graph button --->
+                <span class="absolute right-4 top-4">
+                    <button
+                        class="bg-indigo-500 text-black rounded-full justify-center items-center focus:outline-none w-10 h-10 shadow-xl">
+                        <span class="material-icons text-center">bar_chart</span>
+                    </button>
+                </span>
+                <!--- values --->
+                <div class="mt-4 grid grid-cols-3 gap-2 justify-items-stretch mx-1 text-base">
+                    <span class="border-b-2 border-l-2 border-green-600 rounded-2 text-green-600 p-2">
+                        <span class="block">CO2</span>
+                        <span class="block">1200ppm</span>
+                    </span>
+                    <span class="border-b-2 border-l-2 border-blue-600 rounded-2 text-blue-600 p-2">
+                        <span class="block">Hum</span>
+                        <span class="block">55%</span>
+                    </span>
+                    <span class="border-b-2 border-l-2 border-red-600 rounded-2 text-red-600 p-2">
+                        <span class="block">Temp</span>
+                        <span class="block">22°C</span>
+                    </span>
+                </div>
+            </div>
+            <!--- Card --->
+            <div class="relative bg-white dark:bg-gray-800 py-6 px-6 rounded-3xl w-auto shadow-xl">
+                <!--- Title --->
+                <span class="text-black dark:text-white text-xl font-semibold">Lokaal I118</span>
+                <!--- Graph button --->
+                <span class="absolute right-4 top-4">
+                    <button
+                        class="bg-indigo-500 text-black rounded-full justify-center items-center focus:outline-none w-10 h-10 shadow-xl">
+                        <span class="material-icons text-center">bar_chart</span>
+                    </button>
+                </span>
+                <!--- values --->
+                <div class="mt-4 grid grid-cols-3 gap-2 justify-items-stretch mx-1 text-base">
+                    <span class="border-b-2 border-l-2 border-green-600 rounded-2 text-green-600 p-2">
+                        <span class="block">CO2</span>
+                        <span class="block">1200ppm</span>
+                    </span>
+                    <span class="border-b-2 border-l-2 border-blue-600 rounded-2 text-blue-600 p-2">
+                        <span class="block">Hum</span>
+                        <span class="block">55%</span>
+                    </span>
+                    <span class="border-b-2 border-l-2 border-red-600 rounded-2 text-red-600 p-2">
+                        <span class="block">Temp</span>
+                        <span class="block">22°C</span>
+                    </span>
+                </div>
+            </div>
+            <!--- Card --->
+            <div class="relative bg-white dark:bg-gray-800 py-6 px-6 rounded-3xl w-auto shadow-xl">
+                <!--- Title --->
+                <span class="text-black dark:text-white text-xl font-semibold">Lokaal I118</span>
+                <!--- Graph button --->
+                <span class="absolute right-4 top-4">
+                    <button
+                        class="bg-indigo-500 text-black rounded-full justify-center items-center focus:outline-none w-10 h-10 shadow-xl">
+                        <span class="material-icons text-center">bar_chart</span>
+                    </button>
+                </span>
+                <!--- values --->
+                <div class="mt-4 grid grid-cols-3 gap-2 justify-items-stretch mx-1 text-base">
+                    <span class="border-b-2 border-l-2 border-green-600 rounded-2 text-green-600 p-2">
+                        <span class="block">CO2</span>
+                        <span class="block">1200ppm</span>
+                    </span>
+                    <span class="border-b-2 border-l-2 border-blue-600 rounded-2 text-blue-600 p-2">
+                        <span class="block">Hum</span>
+                        <span class="block">55%</span>
+                    </span>
+                    <span class="border-b-2 border-l-2 border-red-600 rounded-2 text-red-600 p-2">
+                        <span class="block">Temp</span>
+                        <span class="block">22°C</span>
+                    </span>
+                </div>
+            </div>
+            <!--- Card --->
+            <div class="relative bg-white dark:bg-gray-800 py-6 px-6 rounded-3xl w-auto shadow-xl">
+                <!--- Title --->
+                <span class="text-black dark:text-white text-xl font-semibold">Lokaal I118</span>
+                <!--- Graph button --->
+                <span class="absolute right-4 top-4">
+                    <button
+                        class="bg-indigo-500 text-black rounded-full justify-center items-center focus:outline-none w-10 h-10 shadow-xl">
+                        <span class="material-icons text-center">bar_chart</span>
+                    </button>
+                </span>
+                <!--- values --->
+                <div class="mt-4 grid grid-cols-3 gap-2 justify-items-stretch mx-1 text-base">
+                    <span class="border-b-2 border-l-2 border-green-600 rounded-2 text-green-600 p-2">
+                        <span class="block">CO2</span>
+                        <span class="block">1200ppm</span>
+                    </span>
+                    <span class="border-b-2 border-l-2 border-blue-600 rounded-2 text-blue-600 p-2">
+                        <span class="block">Hum</span>
+                        <span class="block">55%</span>
+                    </span>
+                    <span class="border-b-2 border-l-2 border-red-600 rounded-2 text-red-600 p-2">
+                        <span class="block">Temp</span>
+                        <span class="block">22°C</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer
+        class="w-full h-8 content-center bg-indigo-500 text-black dark:bg-gray-800 static bottom-0 dark:text-gray-300">
+        <span class="absolute left-4 hidden md:inline align-middle">Project Web Apps</span>
+        <span class="absolute left-0 md:inset-x-0 md:text-center align-middle">
+            <span class="hidden md:inline align-middle">last update</span>
+            <span class="align-middle" id="footer-update-date">26/04/2021</span>
+            <span class="align-middle" id="footer-update-time">15:24</span>
+        </span>
+        <span class="absolute right-0 md:right-4 align-middle">&copy; Samyn R. 2021</span>
+    </footer>
+</body>
+<script src="/scripts/script.js"></script>
+
+</html>
