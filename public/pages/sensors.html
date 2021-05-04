@@ -5,6 +5,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes" /> 
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#2563EB">
+    <link rel="apple-touch-icon" sizes="57x57" href="images/favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="images/favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="images/favicons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="images/favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="images/favicons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/favicons/apple-touch-icon-152x152.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicons/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="images/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="128x128" href="images/favicons/favicon-128x128.png">
+    <link rel="icon" type="image/png" sizes="196x196" href="images/favicons/favicon-196x196.png">
+    <link rel="manifest" href="manifest.json" />
     <title>Project Web Apps</title>
     <script src="/scripts/libs/jquery.min.js"></script>
     <script src="/scripts/app.js"></script>
@@ -13,8 +30,8 @@
     <link href="/styles/style.css">
 </head>
 
-<body class="flex flex-col h-screen justify-between dark:bg-gray-600 bg-gray-100 ">
-    <nav class="dark:bg-gray-800 bg-indigo-500">
+<body class="flex flex-col h-screen justify-between dark:bg-gray-600 bg-gray-100 p-0">
+    <nav class="dark:bg-gray-800 bg-indigo-600">
         <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
             <div class="relative flex items-center justify-between h-16">
                 <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -48,36 +65,35 @@
                 <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                     <div class="flex-shrink-0 flex items-center">
                         <!-- <img class="block lg:hidden h-8 w-auto"
-                            src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow">
+                            src="https://tailwindui.com/img/logos/workflow-mark-indigo-700.svg" alt="Workflow">
                         <img class="hidden lg:block h-8 w-auto"
-                            src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+                            src="https://tailwindui.com/img/logos/workflow-logo-indigo-700-mark-white-text.svg"
                             alt="Workflow"> -->
                         <a href="/">
                             <span
-                                class="align-middle material-icons text-black text-lg dark:text-indigo-500">ac_unit</span>
+                                class="align-middle material-icons text-white text-lg dark:text-indigo-600">ac_unit</span>
                             <span
-                                class="align-middle text-black font-semibold text-lg dark:text-indigo-500 mx-1">Project
-                                Web Apps</span>
+                                class="align-middle text-white font-semibold text-lg dark:text-indigo-600 mx-1">Project Web Apps</span>
                         </a>
                     </div>
                     <div class="hidden sm:block sm:ml-6">
                         <div class="flex space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                             <a href="/graphs"
-                                class="hover:bg-indigo-300 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                class="hover:bg-indigo-800 text-white dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                 aria-current="page">Graphs</a>
 
                             <a href="/sensors"
-                                class="bg-indigo-300 dark:bg-gray-900 dark:text-white px-3 py-2 rounded-md text-sm font-medium">Sensors</a>
+                                class="bg-indigo-800 text-white dark:bg-gray-900 dark:text-white px-3 py-2 rounded-md text-sm font-medium">Sensors</a>
 
                             <a href="/settings"
-                                class="hover:bg-indigo-300 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium">Settings</a>
+                                class="hover:bg-indigo-800 text-white dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium">Settings</a>
                         </div>
                     </div>
                 </div>
                 <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                     <button
-                        class="align-middle dark:bg-gray-800 p-1 dark:text-gray-400 dark:hover:text-white focus:border-0 focus:outline-none"
+                        class="align-middle dark:bg-gray-800 p-1 text-white dark:text-gray-400 dark:hover:text-white focus:border-0 focus:outline-none"
                         id="btn-toggle-dark-mode">
                         <span class="material-icons align-middle" id="icon-toggle-dark-mode">
                             light_mode
@@ -92,210 +108,56 @@
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                 <a href="/graphs"
-                    class="hover:bg-indigo-300 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                    class="hover:bg-indigo-800 text-white dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                     aria-current="page">Graphs</a>
                 <a href="/sensors"
-                    class="bg-indigo-300 dark:bg-gray-900 dark:text-white block px-3 py-2 rounded-md text-base font-medium">Sensors</a>
+                    class="bg-indigo-800 text-white dark:bg-gray-900 dark:text-white block px-3 py-2 rounded-md text-base font-medium">Sensors</a>
                 <a href="/settings"
-                    class="hover:bg-indigo-300 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium">Settings</a>
+                    class="hover:bg-indigo-800 text-white dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium">Settings</a>
             </div>
         </div>
     </nav>
     <div class="flex-grow max-w-sm md:max-w-none container mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-items-stretch mx-2 md:mx-5 py-4 text-black dark:text-white">
-            <!--- Card --->
-            <div class="relative bg-white dark:bg-gray-800 py-6 px-6 rounded-3xl w-auto shadow-xl">
+        <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-items-stretch mx-2 md:mx-5 py-4 text-purple dark:text-white">
+            <!--- Template --->
+            <!---   Card   --->
+            <div class="relative bg-white dark:bg-gray-800 py-6 px-6 rounded-3xl w-auto shadow-xl" data-id="1">
                 <!--- Title --->
-                <span class="text-black dark:text-white text-xl font-semibold">Lokaal I118</span>
+                <span class="text-black dark:text-white text-xl font-semibold" data-title-id="1">Lokaal I118</span>
                 <!--- Graph button --->
                 <span class="absolute right-4 top-4">
-                    <button
-                        class="bg-indigo-500 text-black rounded-full justify-center items-center focus:outline-none w-10 h-10 shadow-xl">
-                        <span class="material-icons text-center">bar_chart</span>
+                    <button onclick="toggleNotification(1)"
+                        class="text-indigo-600 border-2 border-indigo-600 dark:bg-indigo-600 dark:text-black dark:border-none rounded-full justify-center items-center align-middle focus:outline-none w-10 h-10 shadow-xl mx-1">
+                        <span class="material-icons text-center align-middle" data-span-notification-id="1">notifications_active</span>
                     </button>
+                    <form class="inline-block" action="/graphs/?id=1">
+                        <button
+                            class="text-indigo-600 border-2 border-indigo-600 dark:bg-indigo-600 dark:text-black dark:border-none rounded-full justify-center items-center align-middle focus:outline-none w-10 h-10 shadow-xl mx-1">
+                            <span class="material-icons text-center align-middle">bar_chart</span>
+                        </button>
+                    </form>
                 </span>
                 <!--- values --->
                 <div class="mt-4 grid grid-cols-3 gap-2 justify-items-stretch mx-1 text-base">
                     <span class="border-b-2 border-l-2 border-green-600 rounded-2 text-green-600 p-2">
                         <span class="block">CO2</span>
-                        <span class="block">1200ppm</span>
+                        <span class="block" data-co2-val-id="1">1200ppm</span>
                     </span>
                     <span class="border-b-2 border-l-2 border-blue-600 rounded-2 text-blue-600 p-2">
                         <span class="block">Hum</span>
-                        <span class="block">55%</span>
+                        <span class="block" data-hum-val-id="1">55%</span>
                     </span>
                     <span class="border-b-2 border-l-2 border-red-600 rounded-2 text-red-600 p-2">
                         <span class="block">Temp</span>
-                        <span class="block">22°C</span>
-                    </span>
-                </div>
-            </div>
-            <!--- Card --->
-            <div class="relative bg-white dark:bg-gray-800 py-6 px-6 rounded-3xl w-auto shadow-xl">
-                <!--- Title --->
-                <span class="text-black dark:text-white text-xl font-semibold">Lokaal I118</span>
-                <!--- Graph button --->
-                <span class="absolute right-4 top-4">
-                    <button
-                        class="bg-indigo-500 text-black rounded-full justify-center items-center focus:outline-none w-10 h-10 shadow-xl">
-                        <span class="material-icons text-center">bar_chart</span>
-                    </button>
-                </span>
-                <!--- values --->
-                <div class="mt-4 grid grid-cols-3 gap-2 justify-items-stretch mx-1 text-base">
-                    <span class="border-b-2 border-l-2 border-green-600 rounded-2 text-green-600 p-2">
-                        <span class="block">CO2</span>
-                        <span class="block">1200ppm</span>
-                    </span>
-                    <span class="border-b-2 border-l-2 border-blue-600 rounded-2 text-blue-600 p-2">
-                        <span class="block">Hum</span>
-                        <span class="block">55%</span>
-                    </span>
-                    <span class="border-b-2 border-l-2 border-red-600 rounded-2 text-red-600 p-2">
-                        <span class="block">Temp</span>
-                        <span class="block">22°C</span>
-                    </span>
-                </div>
-            </div>
-            <!--- Card --->
-            <div class="relative bg-white dark:bg-gray-800 py-6 px-6 rounded-3xl w-auto shadow-xl">
-                <!--- Title --->
-                <span class="text-black dark:text-white text-xl font-semibold">Lokaal I118</span>
-                <!--- Graph button --->
-                <span class="absolute right-4 top-4">
-                    <button
-                        class="bg-indigo-500 text-black rounded-full justify-center items-center focus:outline-none w-10 h-10 shadow-xl">
-                        <span class="material-icons text-center">bar_chart</span>
-                    </button>
-                </span>
-                <!--- values --->
-                <div class="mt-4 grid grid-cols-3 gap-2 justify-items-stretch mx-1 text-base">
-                    <span class="border-b-2 border-l-2 border-green-600 rounded-2 text-green-600 p-2">
-                        <span class="block">CO2</span>
-                        <span class="block">1200ppm</span>
-                    </span>
-                    <span class="border-b-2 border-l-2 border-blue-600 rounded-2 text-blue-600 p-2">
-                        <span class="block">Hum</span>
-                        <span class="block">55%</span>
-                    </span>
-                    <span class="border-b-2 border-l-2 border-red-600 rounded-2 text-red-600 p-2">
-                        <span class="block">Temp</span>
-                        <span class="block">22°C</span>
-                    </span>
-                </div>
-            </div>
-            <!--- Card --->
-            <div class="relative bg-white dark:bg-gray-800 py-6 px-6 rounded-3xl w-auto shadow-xl">
-                <!--- Title --->
-                <span class="text-black dark:text-white text-xl font-semibold">Lokaal I118</span>
-                <!--- Graph button --->
-                <span class="absolute right-4 top-4">
-                    <button
-                        class="bg-indigo-500 text-black rounded-full justify-center items-center focus:outline-none w-10 h-10 shadow-xl">
-                        <span class="material-icons text-center">bar_chart</span>
-                    </button>
-                </span>
-                <!--- values --->
-                <div class="mt-4 grid grid-cols-3 gap-2 justify-items-stretch mx-1 text-base">
-                    <span class="border-b-2 border-l-2 border-green-600 rounded-2 text-green-600 p-2">
-                        <span class="block">CO2</span>
-                        <span class="block">1200ppm</span>
-                    </span>
-                    <span class="border-b-2 border-l-2 border-blue-600 rounded-2 text-blue-600 p-2">
-                        <span class="block">Hum</span>
-                        <span class="block">55%</span>
-                    </span>
-                    <span class="border-b-2 border-l-2 border-red-600 rounded-2 text-red-600 p-2">
-                        <span class="block">Temp</span>
-                        <span class="block">22°C</span>
-                    </span>
-                </div>
-            </div>
-            <!--- Card --->
-            <div class="relative bg-white dark:bg-gray-800 py-6 px-6 rounded-3xl w-auto shadow-xl">
-                <!--- Title --->
-                <span class="text-black dark:text-white text-xl font-semibold">Lokaal I118</span>
-                <!--- Graph button --->
-                <span class="absolute right-4 top-4">
-                    <button
-                        class="bg-indigo-500 text-black rounded-full justify-center items-center focus:outline-none w-10 h-10 shadow-xl">
-                        <span class="material-icons text-center">bar_chart</span>
-                    </button>
-                </span>
-                <!--- values --->
-                <div class="mt-4 grid grid-cols-3 gap-2 justify-items-stretch mx-1 text-base">
-                    <span class="border-b-2 border-l-2 border-green-600 rounded-2 text-green-600 p-2">
-                        <span class="block">CO2</span>
-                        <span class="block">1200ppm</span>
-                    </span>
-                    <span class="border-b-2 border-l-2 border-blue-600 rounded-2 text-blue-600 p-2">
-                        <span class="block">Hum</span>
-                        <span class="block">55%</span>
-                    </span>
-                    <span class="border-b-2 border-l-2 border-red-600 rounded-2 text-red-600 p-2">
-                        <span class="block">Temp</span>
-                        <span class="block">22°C</span>
-                    </span>
-                </div>
-            </div>
-            <!--- Card --->
-            <div class="relative bg-white dark:bg-gray-800 py-6 px-6 rounded-3xl w-auto shadow-xl">
-                <!--- Title --->
-                <span class="text-black dark:text-white text-xl font-semibold">Lokaal I118</span>
-                <!--- Graph button --->
-                <span class="absolute right-4 top-4">
-                    <button
-                        class="bg-indigo-500 text-black rounded-full justify-center items-center focus:outline-none w-10 h-10 shadow-xl">
-                        <span class="material-icons text-center">bar_chart</span>
-                    </button>
-                </span>
-                <!--- values --->
-                <div class="mt-4 grid grid-cols-3 gap-2 justify-items-stretch mx-1 text-base">
-                    <span class="border-b-2 border-l-2 border-green-600 rounded-2 text-green-600 p-2">
-                        <span class="block">CO2</span>
-                        <span class="block">1200ppm</span>
-                    </span>
-                    <span class="border-b-2 border-l-2 border-blue-600 rounded-2 text-blue-600 p-2">
-                        <span class="block">Hum</span>
-                        <span class="block">55%</span>
-                    </span>
-                    <span class="border-b-2 border-l-2 border-red-600 rounded-2 text-red-600 p-2">
-                        <span class="block">Temp</span>
-                        <span class="block">22°C</span>
-                    </span>
-                </div>
-            </div>
-            <!--- Card --->
-            <div class="relative bg-white dark:bg-gray-800 py-6 px-6 rounded-3xl w-auto shadow-xl">
-                <!--- Title --->
-                <span class="text-black dark:text-white text-xl font-semibold">Lokaal I118</span>
-                <!--- Graph button --->
-                <span class="absolute right-4 top-4">
-                    <button
-                        class="bg-indigo-500 text-black rounded-full justify-center items-center focus:outline-none w-10 h-10 shadow-xl">
-                        <span class="material-icons text-center">bar_chart</span>
-                    </button>
-                </span>
-                <!--- values --->
-                <div class="mt-4 grid grid-cols-3 gap-2 justify-items-stretch mx-1 text-base">
-                    <span class="border-b-2 border-l-2 border-green-600 rounded-2 text-green-600 p-2">
-                        <span class="block">CO2</span>
-                        <span class="block">1200ppm</span>
-                    </span>
-                    <span class="border-b-2 border-l-2 border-blue-600 rounded-2 text-blue-600 p-2">
-                        <span class="block">Hum</span>
-                        <span class="block">55%</span>
-                    </span>
-                    <span class="border-b-2 border-l-2 border-red-600 rounded-2 text-red-600 p-2">
-                        <span class="block">Temp</span>
-                        <span class="block">22°C</span>
+                        <span class="block" data-temp-val-id="1">22°C</span>
                     </span>
                 </div>
             </div>
         </div>
     </div>
     <footer
-        class="w-full h-8 content-center bg-indigo-500 text-black dark:bg-gray-800 static bottom-0 dark:text-gray-300">
+        class="w-full h-8 content-center bg-indigo-600 text-white dark:bg-gray-800 static bottom-0 dark:text-gray-300">
         <span class="absolute left-4 hidden md:inline align-middle">Project Web Apps</span>
         <span class="absolute left-0 md:inset-x-0 md:text-center align-middle">
             <span class="hidden md:inline align-middle">last update</span>
@@ -306,5 +168,5 @@
     </footer>
 </body>
 <script src="/scripts/script.js"></script>
-
+<script src="/scripts/sensors.js"></script>
 </html>

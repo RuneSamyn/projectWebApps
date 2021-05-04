@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Web Apps</title>
     <script src="/scripts/libs/jquery.min.js"></script>
+    <script src="/scripts/libs/chart.js"></script>
     <script src="/scripts/app.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="/styles/libs/tailwind.css" rel="stylesheet">
@@ -97,8 +98,17 @@
         </div>
     </nav>
     <div class="dark:bg-gray-600 bg-gray-100 flex-grow">
-        <div class="container mx-auto text-lg text-black dark:text-white">
-            <span>content</span>
+        <div
+            class="container mx-auto mt-5 rounded-3xl shadow-xl p-6 text-base text-black dark:text-white bg-white dark:bg-gray-800 w-11/12 sm:w-8/12 md:w-6/12">
+            <div class="flex align-middle">
+                <canvas id="canvas-graph-co2" class="text-black dark:text-white bg-white dark:bg-gray-800 w-full h-80"></canvas>
+            </div>
+            <div class="flex align-middle">
+                <canvas id="canvas-graph-hum" class="text-black dark:text-white bg-white dark:bg-gray-800 w-full h-80"></canvas>
+            </div>
+            <div class="flex align-middle">
+                <canvas id="canvas-graph-temp" class="text-black dark:text-white bg-white dark:bg-gray-800 w-full h-80"></canvas>
+            </div>
         </div>
     </div>
     <footer class="w-full h-8 content-center bg-indigo-500 text-black dark:bg-gray-800 static bottom-0 dark:text-gray-300">
@@ -112,5 +122,6 @@
     </footer>
 </body>
 <script src="/scripts/script.js"></script>
+<script src="/scripts/graphs.js"></script>
 
 </html>
