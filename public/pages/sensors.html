@@ -118,54 +118,79 @@
             </div>
         </div>
     </nav>
-    <div class="flex-grow max-w-sm md:max-w-none container mx-auto">
-        <!--- Search for sensor --->
-        <div class="relative text-lg my-3 mx-auto px-3">
-            <input class="py-2 px-4 rounded-3xl bg-white dark:bg-gray-800 text-black dark:text-white mx-auto focus:outline-none" 
-                type="text" name="input-search-sensor" placeholder="Search for sensor" id="input-search-sensor" oninput="searchSensors()">
-            <button class="h-full absolute inline-block bg-white dark:bg-gray-800 text-black dark:text-white hover:bg-indigo-600 dark:hover:bg-gray-700 rounded-full justify-center items-center align-middle focus:outline-none w-10 h-10 shadow-xl mx-1">
-                <span class="material-icons align-middle">qr_code_scanner</span>
-            </button>
-        </div>
-        <div
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-items-stretch mx-2 md:mx-5 py-4 text-purple dark:text-white"
+    <div class="relative" id="sensor-window">
+        <div class="flex-grow max-w-sm md:max-w-none container mx-auto">
+            <!--- Search for sensor --->
+            <div class="relative text-lg my-3 mx-auto px-3">
+                <input
+                    class="py-2 px-4 rounded-3xl bg-white dark:bg-gray-800 text-black dark:text-white mx-auto focus:outline-none"
+                    type="text" name="input-search-sensor" placeholder="Search for sensor" id="input-search-sensor"
+                    oninput="searchSensors()">
+                <button onclick="openCamera()"
+                    class="h-full absolute inline-block bg-white dark:bg-gray-800 text-black dark:text-white hover:bg-indigo-600 dark:hover:bg-gray-700 rounded-full justify-center items-center align-middle focus:outline-none w-10 h-10 shadow-xl mx-1">
+                    <span class="material-icons align-middle">qr_code_scanner</span>
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-items-stretch mx-2 md:mx-5 py-4 text-purple dark:text-white"
                 id="card-grid">
-            <!--- Template --->
-            <!---   Card   --->
-            <div class="hidden relative bg-white dark:bg-gray-800 py-6 px-6 rounded-3xl w-auto shadow-xl" data-card="template">
-                <!--- Title --->
-                <span class="text-black dark:text-white text-xl font-semibold" data-room="template">Lokaal template</span>
-                <span data-error="template" class="hidden text-red-500 mx-5">Offline</span>
-                <!--- Graph button --->
-                <span class="absolute right-4 top-4">
-                    <button onclick="toggleNotification('template')" data-button-notification="template"
-                        class="text-indigo-600 border-2 border-indigo-600 dark:bg-indigo-600 dark:text-black dark:border-none rounded-full justify-center items-center align-middle focus:outline-none w-10 h-10 shadow-xl mx-1">
-                        <span class="material-icons text-center align-middle"
-                            data-span-notification-room="template">notifications_active</span>
-                    </button>
-                    <form class="inline-block" data-form="template" action="/graphs" method="GET">
-                        <input type="hidden" name="room" data-form-room="template" value="template">
-                        <button
+                <!--- Template --->
+                <!---   Card   --->
+                <div class="hidden relative bg-white dark:bg-gray-800 py-6 px-6 rounded-3xl w-auto shadow-xl"
+                    data-card="template">
+                    <!--- Title --->
+                    <span class="text-black dark:text-white text-xl font-semibold" data-room="template">Lokaal
+                        template</span>
+                    <span data-error="template" class="hidden text-red-500 mx-5">Offline</span>
+                    <!--- Graph button --->
+                    <span class="absolute right-4 top-4">
+                        <button onclick="" data-button-notification="template"
                             class="text-indigo-600 border-2 border-indigo-600 dark:bg-indigo-600 dark:text-black dark:border-none rounded-full justify-center items-center align-middle focus:outline-none w-10 h-10 shadow-xl mx-1">
-                            <span class="material-icons text-center align-middle">bar_chart</span>
+                            <span class="material-icons text-center align-middle"
+                                data-span-notification-room="template">notifications_off</span>
                         </button>
-                    </form>
-                </span>
-                <!--- values --->
-                <div class="mt-4 grid grid-cols-3 gap-2 justify-items-stretch mx-1 text-base">
-                    <span class="border-b-2 border-l-2 border-green-600 rounded-2 text-green-600 p-2">
-                        <span class="block">CO2</span>
-                        <span class="block" data-co2-val-id="template">1200ppm</span>
+                        <form class="inline-block" data-form="template" action="/graphs" method="GET">
+                            <input type="hidden" name="room" data-form-room="template" value="template">
+                            <button
+                                class="text-indigo-600 border-2 border-indigo-600 dark:bg-indigo-600 dark:text-black dark:border-none rounded-full justify-center items-center align-middle focus:outline-none w-10 h-10 shadow-xl mx-1">
+                                <span class="material-icons text-center align-middle">bar_chart</span>
+                            </button>
+                        </form>
                     </span>
-                    <span class="border-b-2 border-l-2 border-blue-600 rounded-2 text-blue-600 p-2">
-                        <span class="block">Hum</span>
-                        <span class="block" data-hum-val-id="template">55%</span>
-                    </span>
-                    <span class="border-b-2 border-l-2 border-red-600 rounded-2 text-red-600 p-2">
-                        <span class="block">Temp</span>
-                        <span class="block" data-temp-val-id="template">22°C</span>
+                    <!--- values --->
+                    <div class="mt-4 grid grid-cols-3 gap-2 justify-items-stretch mx-1 text-base">
+                        <span class="border-b-2 border-l-2 border-green-600 rounded-2 text-green-600 p-2">
+                            <span class="block">CO2</span>
+                            <span class="block" data-co2-val-id="template">1200ppm</span>
+                        </span>
+                        <span class="border-b-2 border-l-2 border-blue-600 rounded-2 text-blue-600 p-2">
+                            <span class="block">Hum</span>
+                            <span class="block" data-hum-val-id="template">55%</span>
+                        </span>
+                        <span class="border-b-2 border-l-2 border-red-600 rounded-2 text-red-600 p-2">
+                            <span class="block">Temp</span>
+                            <span class="block" data-temp-val-id="template">22°C</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hidden absolute top-0 bottom-0 w-full mx-auto backdrop-filter backdrop-blur-md" id="camera-window">
+            <div class="mx-auto my-5 w-11/12 md:w-1/2">
+                <div class="relative w-full my-5">
+                    <button id="btn-goToURL"
+                        class="text-indigo-600 border-2 border-indigo-600 dark:bg-indigo-600 dark:text-black dark:border-none focus:outline-none rounded-3xl h-10 shadow-xl mx-1 px-4">
+                        no QR-code 
+                    </button>
+                    <span class="absolute right-0 top-0">
+                        <button onclick="closeCamera()"
+                            class="text-indigo-600 border-2 border-indigo-600 dark:bg-indigo-600 dark:text-black dark:border-none rounded-full justify-center items-center align-middle focus:outline-none w-10 h-10 shadow-xl mx-1">
+                            <span class="material-icons text-center align-middle"
+                                data-span-notification-room="template">close</span>
+                        </button>
                     </span>
                 </div>
+                <canvas id="qr-canvas" class="w-full" class="my-5">
+                </canvas>
             </div>
         </div>
     </div>
@@ -183,6 +208,7 @@
 </body>
 <script src='/scripts/libs/axios.js'></script>
 <script src='/scripts/libs/socket.io.js'></script>
+<script src='/scripts/libs/jsQR.js'></script>
 <script src="/scripts/script.js"></script>
 <script src="/scripts/sensors.js"></script>
 
