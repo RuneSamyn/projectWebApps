@@ -24,9 +24,12 @@
     "fs": "*",
     "html": "^1.0.0",
     "jquery": "^3.6.0",
+    "jsqr": "^1.4.0",
     "material-design-icons": "^3.0.1",
     "moment": "^2.29.1",
+    "nedb": "^1.8.0",
     "socket.io": "^4.0.1",
-    "tailwindcss-dark-mode": "^1.1.7"
+    "tailwindcss-dark-mode": "^1.1.7",
+    "web-push": "^3.4.4"
   }
 }
