@@ -104,3 +104,17 @@ self.addEventListener('fetch', event => {
         })
     );
 });
+
+self.addEventListener('notificationclick', event => {
+    console.log("Notification clicked.");
+
+});
+
+// Vang het 'push' event op!
+self.addEventListener('push', event => {
+    console.log("Notification was pushed from the push service: ", event.data.text());
+
+    event.waitUntil(
+        self.registration.showNotification(event.data.text())
+    );
+});
