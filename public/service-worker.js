@@ -53,68 +53,109 @@ const StaticFilesToCache = [
 ];
 
 self.addEventListener('install', event => {
-    console.log('Service worker installed: ', event);
+	console.log('Service worker installed: ', event);
 
-    event.waitUntil(
-        caches.open(staticCacheName).then(cache => {
-            console.log('Caching static files.');
-            cache.addAll(StaticFilesToCache);
-        })
-    );
+	event.waitUntil(
+		caches.open(staticCacheName).then(cache => {
+			console.log('Caching static files.');
+			cache.addAll(StaticFilesToCache);
+		})
+	);
 });
 
 self.addEventListener('activate', event => {
-    console.log('Service worker activated: ', event);
+	console.log('Service worker activated: ', event);
 
-    event.waitUntil(
-        caches.keys().then(keys => {
-            console.log('Cache keys: ', keys);
+	event.waitUntil(
+		caches.keys().then(keys => {
+			console.log('Cache keys: ', keys);
 
-            return Promise.all(keys
-                .filter(key => (key !== staticCacheName) && (key !== dynamicCacheName))
-                .map(key => caches.delete(key)));
-        })
-    );
+			return Promise.all(keys
+				.filter(key => (key !== staticCacheName) && (key !== dynamicCacheName))
+				.map(key => caches.delete(key)));
+		})
+	);
 });
 
 self.addEventListener('fetch', event => {
-    console.log('Fetch event: ', event);
+	console.log('Fetch event: ', event.request);
 
-    event.respondWith(
-        caches.match(event.request).then(cacheResponse => {
-            return cacheResponse || fetch(event.request)
-                .then(fetchResponse => {
-                    return caches.open(dynamicCacheName)
-                        .then(cache => {
-                            cache.put(event.request.url, fetchResponse.clone());
-                            return fetchResponse;
-                        })
-                })
-                // Indien data ophalen niet mogelijk is (offline), toon de fallback page.
-                .catch(() => {
-                    // Toon enkel voor HTML-bestanden de fallback page.
-                    if(event.request.url.indexOf('.html') >= 0) {
-						console.log('fallback to offline page')
-						return caches.open(staticCacheName)
-							.then(cache => {
-								return cache.match('/fallback');
-							})
-					}
-                });
-        })
-    );
+	// if ((event.request.url.indexOf('/api/') >= 0)) {
+	// 	console.log("not caching event")
+	// 	event.respondWith(
+	// 		fetch(event.request)
+	// 			.then(fetchResponse => { return fetchResponse })
+	// 			.catch(console.log)
+	// 	)
+	// } else {
+		event.respondWith(
+			caches.match(event.request)
+				.then(cacheResponse => {
+					return cacheResponse || fetch(event.request)
+						.then(fetchResponse => {
+							return caches.open(dynamicCacheName)
+								.then(cache => {
+									if (!(event.request.url.indexOf('http') === 0)) {
+										return fetchResponse;
+									} else {
+										cache.put(event.request.url, fetchResponse.clone());
+										return fetchResponse;
+									}
+								})
+						})
+						// Indien data ophalen niet mogelijk is (offline), toon de fallback page.
+						.catch(() => {
+							// Toon enkel voor HTML-bestanden de fallback page.
+							console.log("cannot access request")
+							var url = event.request.url;
+							if ((url.indexOf('.html') >= 0) || (url.indexOf('/graphs') >= 0) || (url.indexOf('/graphs') >= 0) || (url.indexOf('/graphs') >= 0)) {
+								console.log('fallback to offline page')
+								return caches.open(staticCacheName)
+									.then(cache => {
+										return cache.match('/fallback');
+									})
+							}
+						});
+				})
+		);
+	// }
+
 });
 
 self.addEventListener('notificationclick', event => {
-    console.log("Notification clicked.");
+	console.log("Notification clicked.");
 
 });
 
 // Vang het 'push' event op!
 self.addEventListener('push', event => {
-    console.log("Notification was pushed from the push service: ", event.data.text());
+	console.log("Notification was pushed from the push service: ", event.data.text());
 
-    event.waitUntil(
-        self.registration.showNotification(event.data.text())
-    );
+	event.waitUntil(
+		self.registration.showNotification(event.data.text())
+	);
 });
+
+
+// functions
+
+
+function showOfflineLanding(event) {
+	return caches.match(new Request('offline.html'));
+}
+
+function pullFromCache(event) {
+	return caches.match(event.request)
+		.then(response => {
+			return response || fetch(event.request)
+				.then(response => {
+					console.log('Fetched form the network, not the list...');
+
+					return caches.open('version7')
+						.then(cache => {
+							cache.put(event.request, response.clone());
+							return response;
+						});
+				});
+		});
+}

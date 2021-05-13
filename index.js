@@ -12,6 +12,8 @@ var webpush = require('web-push');
 const rooms = ['I118', 'I117', 'I115', 'I113', 'I003', 'A201', 'I212', 'C004', 'A102', 'A202', 'A008'].sort()
 const hours = 2;
 
+var liveData = [];
+
 var db = new datastore();
 
 const vapidKeys = {
@@ -29,6 +31,25 @@ webpush.setVapidDetails(
 
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.json())
+
+// interval
+
+var liveDataInterval = setInterval(() => {
+    data = []
+    rooms.forEach(room => {
+        let element = {
+            'room': room,
+            'data': {
+                'co2': Math.floor(Math.random() * 1550) + 450,
+                'temp': Math.floor(Math.random() * 7) + 17,
+                'hum': Math.floor(Math.random() * 30) + 30,
+            }
+        }
+        checkToNotify(element);
+        data.push(element);
+    })
+    liveData = data;
+}, 1000)
 
 // functions
 
@@ -62,10 +83,8 @@ function triggerPushMessage(subscription, dataToSend) {
     // Deze functie return't een Promise die resulteert in een object of error.
     return webpush.sendNotification(subscription, dataToSend)
         .catch((err) => {
-            console.log('err: ' + JSON.stringify(err))
-            console.log('statusCode: ' + err.statusCode)
             if (err.statusCode === 404 || err.statusCode === 410) {
-                console.log('Subscription has expired or is no longer valid: ', err);
+                console.log('Subscription has expired or is no longer valid: ', err.message);
 
                 // Het bewuste abonnement verwijderen. Nog verder testen.
                 db.remove({ _id: subscription._id }, {}, function () {
@@ -115,7 +134,6 @@ function checkToNotify(element) {
                     // iterate over all subscriptions
                     docs[0].IDs.forEach(ID => {
                         db.find({_id: ID}, function (err, subscriptions) {
-                            console.log(subscriptions);
                             if (err)
                                 console.log("Error during searching in NeDB: ", err);
                             else {
@@ -136,27 +154,14 @@ function checkToNotify(element) {
 
 io.on('connection', (socket) => {
     socket.on('get live data', () => {
-        var data = [];
-        rooms.forEach(room => {
-            let element = {
-                'room': room,
-                'data': {
-                    'co2': Math.floor(Math.random() * 1550) + 450,
-                    'temp': Math.floor(Math.random() * 7) + 17,
-                    'hum': Math.floor(Math.random() * 30) + 30,
-                }
-            }
-            checkToNotify(element);
-            data.push(element);
-        })
-        socket.emit('live data', data);
+        socket.emit('live data', liveData);
     });
 });
 
 // routes
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/pages/graphs.html');
+    res.sendFile(__dirname + '/public/pages/sensors.html');
 })
 
 app.get('/graphs', (req, res) => {
@@ -281,8 +286,6 @@ app.post("/api/trigger-push-message/", function (request, response) {
     // Alle abonnementen opvragen in de database en daarnaar een berichtje pushen.
     // Info over opvragen gegevens in een NeDB, zie: https://github.com/louischatriot/nedb/wiki/Finding-documents.
     db.find({}, function (err, subscriptions) {
-        console.log(subscriptions);
-
         if (err)
             console.log("Error during searching in NeDB: ", err);
         else {
@@ -296,7 +299,6 @@ app.post("/api/trigger-push-message/", function (request, response) {
 
 // route om te checken if notification al bestaat.
 app.post("/api/check-push-id/", function (request, response) {
-    console.log("Check if : ", request.body.ID);
     // Alle abonnementen opvragen in de database en daarnaar een berichtje pushen.
     // Info over opvragen gegevens in een NeDB, zie: https://github.com/louischatriot/nedb/wiki/Finding-documents.
     db.find({ _id: request.body.ID }, function (err, docs) {
@@ -307,12 +309,10 @@ app.post("/api/check-push-id/", function (request, response) {
         }
         else {
             if (docs.length > 0) {
-                console.log('found')
                 response.header('Content-Type', 'application/json').send(JSON.stringify({
                     data: { success: true }
                 }));
             } else {
-                console.log('not found')
                 response.header('Content-Type', 'application/json').send(JSON.stringify({
                     data: { success: false }
                 }));
@@ -323,7 +323,6 @@ app.post("/api/check-push-id/", function (request, response) {
 
 // add subscription id to room.
 app.post("/api/add-id-to-room/", function (request, response) {
-    console.log(`add it to room. id: ${request.body.id}, room: ${request.body.room}`);
     // Alle abonnementen opvragen in de database en daarnaar een berichtje pushen.
     // Info over opvragen gegevens in een NeDB, zie: https://github.com/louischatriot/nedb/wiki/Finding-documents.
     db.update({ room: request.body.room }, { $addToSet: { IDs: request.body.id } }, {}, function (err, numReplaced) {
@@ -348,7 +347,6 @@ app.post("/api/add-id-to-room/", function (request, response) {
 
 // remove subscription id from room.
 app.post("/api/remove-id-from-room/", function (request, response) {
-    console.log(`remove id from room. id: ${request.body.id}, room: ${request.body.room}`);
     // Info over opvragen gegevens in een NeDB, zie: https://github.com/louischatriot/nedb/wiki/Finding-documents.
     db.find({ room: request.body.room }, function (err, docs) {
         if (err) {
@@ -356,7 +354,6 @@ app.post("/api/remove-id-from-room/", function (request, response) {
                 data: { success: false, message: "failed to access DB" }
             }));
         } else {
-            console.log("document: ", docs[0]);
             docs[0].IDs.splice(docs[0].IDs.indexOf(request.body.subscriptionId), 1);
             // Set an existing field's value
             db.update({ room: request.body.room }, { $set: { IDs: docs[0].IDs } }, {}, function (err, numReplaced) {
@@ -382,7 +379,6 @@ app.post("/api/remove-id-from-room/", function (request, response) {
 
 // returns all rooms where user is subscribed to.
 app.post("/api/get-rooms-by-id/", function (request, response) {
-    console.log("Get rooms");
     // Info over opvragen gegevens in een NeDB, zie: https://github.com/louischatriot/nedb/wiki/Finding-documents.
     db.find({ IDs: request.body.ID }, function (err, docs) {
         if (err) {
@@ -417,7 +413,6 @@ app.post("/api/get-rooms-by-id/", function (request, response) {
 server.listen(3000, () => {
     rooms.forEach(room => {
         saveNewRoomInDB(room)
-            .then(ID => console.log(`Room ID: ${ID}`))
             .catch(err => console.log(err))
     })
     console.log(`The application started on port ${server.address().port}`);

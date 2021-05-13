@@ -8,7 +8,7 @@ var video = document.createElement('video');
 var handleAnimationFrame;
 var subscriptionId = ""
 
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
     // get rooms where user is subscribed to.
     if ('subscriptionId' in localStorage) {
         // check if you have already a pushID
@@ -16,7 +16,7 @@ window.addEventListener('load', () => {
         if (subscriptionId != "") {
             // check if ID needs to be updated
 
-            axios.post('/api/check-push-id/', { ID: subscriptionId })
+            await axios.post('/api/check-push-id/', { ID: subscriptionId })
                 .then(async (response) => {
                     if (response.data.data.success) {
                         console.log("subscription already exists")
@@ -25,63 +25,31 @@ window.addEventListener('load', () => {
                         console.log("make new subscription")
                         await subscribeToNotifications();
                     }
-                    axios.post('/api/get-rooms-by-id/', { ID: subscriptionId })
-                        .then(response => {
-                            console.log("response: " + JSON.stringify(response))
-                            if (response.data.data.success) {
-                                roomsSubscribedTo = response.data.data.rooms;
-                                console.log("roomsSubscribedTo: " + roomsSubscribedTo);
-                            }
-                            axios.get('/getRooms')
-                                .then(response => {
-                                    rooms = response.data;
-                                    makeCards(rooms);
-
-                                    var liveDataInterval = setInterval(() => {
-                                        socket.emit('get live data');
-                                    }, 1000)
-
-                                    socket.on('live data', data => {
-                                        updateCards(data);
-                                    })
-
-                                    socket.on('connect_error', function () {
-                                        noConnection();
-                                    })
-                                })
-                                .catch(err => {
-                                    console.log(err);
-                                })
-                        })
-                        .catch(err => {
-                            console.log(err)
-                        })
                 })
                 .catch(err => {
                     console.log("failed to check subscription: " + err)
                 })
-        } else {
-            axios.get('/getRooms')
-                .then(response => {
-                    rooms = response.data;
-                    makeCards(rooms);
-
-                    var liveDataInterval = setInterval(() => {
-                        socket.emit('get live data');
-                    }, 1000)
-
-                    socket.on('live data', data => {
-                        updateCards(data);
-                    })
-
-                    socket.on('connect_error', function () {
-                        noConnection();
-                    })
-                })
-                .catch(err => {
-                    console.log(err);
-                })
         }
+        axios.get('/getRooms')
+            .then(response => {
+                rooms = response.data;
+                makeCards(rooms);
+
+                var liveDataInterval = setInterval(() => {
+                    socket.emit('get live data');
+                }, 1000)
+
+                socket.on('live data', data => {
+                    updateCards(data);
+                })
+
+                socket.on('connect_error', function () {
+                    noConnection();
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
     // Zoek naar media devices.
     if ('mediaDevices' in navigator) {

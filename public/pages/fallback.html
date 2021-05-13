@@ -1,1 +1,57 @@
-<h1>Fallback</h1>
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#2563EB">
+    <link rel="apple-touch-icon" sizes="57x57" href="images/favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="images/favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="images/favicons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="images/favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="images/favicons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/favicons/apple-touch-icon-152x152.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicons/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="images/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="128x128" href="images/favicons/favicon-128x128.png">
+    <link rel="icon" type="image/png" sizes="196x196" href="images/favicons/favicon-196x196.png">
+    <link rel="manifest" href="manifest.json" />
+    <title>Project Web Apps</title>
+    <script src="/scripts/libs/jquery.min.js"></script>
+    <script src="/scripts/app.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/styles/libs/tailwind.css" rel="stylesheet">
+    <link href="/styles/style.css">
+</head>
+
+<body class="flex flex-col h-full justify-between dark:bg-gray-600 bg-gray-100 p-0">
+    <div class="relative my-0">
+        <div class="flex-grow max-w-sm md:max-w-none container mx-auto my-0 text-black">
+            <h1 class="text-7xl sm:text-9xl text-center mt-24">Offline</h1>
+            <h2 class="text-xl text-center my-2 sm:my-0">This page is not available</h2>
+            <h2 class="text-xl text-center mb-10">You need an internet connection to access and cache this page</h2>
+            <span class="material-icons text-7xl sm:text-9xl align-middle mx-auto inline-block w-full text-center">
+                wifi_off
+            </span>
+        </div>
+    </div>
+    <br>
+    <footer
+        class="w-full h-8 content-center bg-indigo-600 text-white dark:bg-gray-800 fixed bottom-0 dark:text-gray-300">
+        <span class="absolute left-4 hidden md:inline align-middle">Project Web Apps</span>
+        <span class="absolute left-2 md:inset-x-0 md:text-center align-middle">
+            <span class="hidden md:inline align-middle">last update</span>
+            <span class="align-middle" id="footer-update-date">26/04/2021</span>
+            <span class="align-middle" id="footer-update-time">15:24</span>
+        </span>
+        <span class="absolute right-2 md:right-4 align-middle">&copy; Samyn R. 2021</span>
+    </footer>
+</body>
+<script src="/scripts/script.js"></script>
+</html>
